@@ -1,4 +1,16 @@
 trigger AccountTrigger on Account (after insert) {
+
+//check if switch is ON or OFF
+//if OFF
+    //return
+Trigger_Switch__c accountSwitch = Trigger_Switch__c.getInstance('Account');
+boolean accSwitch =accountSwitch.switch__c;
+if (accSwitch == false) {
+    return;
+    
+}
+
+
     if (trigger.isAfter && trigger.isInsert) {
         AccountTriggerHandler.createContact(trigger.New, trigger.Old, trigger.NewMap, trigger.OldMap );
    }
